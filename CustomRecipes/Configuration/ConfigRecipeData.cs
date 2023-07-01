@@ -1,23 +1,15 @@
 ﻿using Nautilus.Crafting;
-using Nautilus.Json;
 using Newtonsoft.Json;
+using SharedProject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using static CraftData;
 
-namespace CustomRecipes
+namespace CustomRecipes.Configuration
 {
-    internal class Config : ConfigFile
-    {
-        public Dictionary<string, ConfigRecipeData> modifiedRecipes = new()
-        {
-            { 
-                TechType.Battery.ToString(), 
-                new ConfigRecipeData(new ConfigRecipeData.ConfigIngredient(TechType.AcidMushroom, 5), new ConfigRecipeData.ConfigIngredient(TechType.Copper, 2)) 
-            }
-        };
-    }
     internal class ConfigRecipeData
     {
         public static implicit operator RecipeData(ConfigRecipeData configRecipeData)
@@ -26,7 +18,7 @@ namespace CustomRecipes
             data.Ingredients = new();
             configRecipeData.ingredients.ForEach(item => data.Ingredients.Add(item));
             data.craftAmount = configRecipeData.craftAmount;
-            data.LinkedItems = new ();
+            data.LinkedItems = new();
             configRecipeData.linkedItems.ForEach(item => data.LinkedItems.Add(item.AsEnum()));
 
             return data;
